@@ -67,7 +67,6 @@ def chatbot_page(request, session_id):
     #check if user is authenticated
     if request.user.is_authenticated:
         session = get_object_or_404(ChatBotSession, id=session_id) 
-        user_page = AttendanceFormset(request.POST or None)
 
         if request.method == 'POST':
             #get user input from the form
