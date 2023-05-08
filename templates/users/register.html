@@ -1,0 +1,42 @@
+{%extends 'base.html'%}
+
+{%block content%}
+
+{% if messages %}
+<div class="container">
+<div class="row">
+{% for message in messages %}
+<div class="col-12 mt-5">
+<div class="shadow card-body">
+	<div class="card-text text-danger" href="#" data-dismiss="alert">{{ message }}</div>
+	</div>
+</div>
+{% endfor %}
+</div>
+</div>
+{% endif %}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+	<div class="center">
+	  <form method="post" novaldiate class="card">
+	  	{% csrf_token %}
+	    <h2 class="text-center mt-4">Create your account</h2>
+		{% for field in form %}
+	    		{{ field.label_tag }}
+	        	{{ field }}
+	        	{% if field.errors %}
+	        		<small class="error">{{ field.errors|striptags  }}</small>
+	        	{% endif %}
+		{% endfor %}
+
+		<input type="submit" value="Register" class="mt-4 btn btn-primary full-width">
+		<hr>
+		<p class="text-center">Already have an account? <a href="{% url 'login'%}">Login Here</a></p>
+		</form>
+	</div>
+	</div>
+	</div>
+	</div>
+{%endblock content%}

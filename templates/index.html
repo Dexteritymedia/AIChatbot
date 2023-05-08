@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}ChatBot Page{% endblock title %}
+
+
+{% block content %}
+        <div class="container mt-5" style="margin-top: 50px;">
+			<div class="row">
+			<div class="col-12">
+            {% if not get_history %}
+            <h1 class="text-center mt-5">Hi {{request.user.username}} 👋, Let's Talk!</h1>
+            {% endif %}
+			<br/>
+
+<form class="mt-5" action="'h" method="post">
+			{% csrf_token %}
+	
+				<div class="row">
+					<div class="col-8 mt-3">
+					<label form="title" class="form-label">Ask your question</label>
+					<input type="text" class="form-control form-control-lg" name="userInput" placeholder="Ask your question..." required />
+					</div>
+					
+				
+					<div class="col-2 mt-3">
+					<label form="tone" class="form-label">Tone</label>
+					<select name="tone" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" required>
+						<option value="professional" selected>Professional</option>
+						<option value="friendly">Friendly</option>
+						<option value="funny">Funny</option>
+					</select>
+					</div>
+					
+					<div class="col-2 mt-3">
+					<label form="language" class="form-label">Language</label>
+					<select name="language" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" required>
+						<option value="english" selected>English </option>
+						<option value="traditional chinese">Traditional Chinese</option>
+						<option value="simplified chinese">Simplified Chinese</option>
+					</select>
+					</div>
+			
+					</div>
+						
+				</div>
+				</div>
+				</div>
+				
+				<div class="container">
+					<div class="row">
+					<div class="col-12">
+					<button name="outline" class="btn btn-secondary mb-4" type="submit">ASK!</button>
+</form>
+
+<ol class="list-group mt-5" id="results">
+                {% for history in get_history %}
+				<div class="card text-white mt-5 mb-3" style="background-color: #33b5e5;">
+					<div class="card-body">
+						<h4 class="card-title">Bot <i class="fa fa-robot"></i></h4>
+						<br/>
+							<p class="card-text">{{history.bot_response|safe}}</p>
+					</div>
+				</div>
+				<div class="card text-white mt-5 mb-3" style="background-color: #ff4444;">
+					<div class="card-body">
+						<h4 class="card-title">{{history.user.username|title}} <i class="fas fa-user-circle"></i></h4>
+						<br/>
+							<p class="card-text">{{history.message}}</p>
+					</div>
+				</div>
+				{% endfor %}
+            </ol>
+        
+        </div>
+	</div>
+</div>
+{% endblock content %}

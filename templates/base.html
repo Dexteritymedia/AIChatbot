@@ -1,0 +1,85 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>
+            {% block title %}
+			AI Chatbot
+            {% endblock title %}
+        </title>
+        <meta name="description" content="" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/chatbot.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+		<link rel="stylesheet" type="text/css" href="">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alegreya+Sana:wght@500|Libre+Bodoni|Righteous|Alegreya|Lora|Lato">
+		<script src="https://unpkg.com/htmx.org@1.8.0"></script>
+    </head>
+
+ <body>
+
+<header>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #e3f2fd;">
+    <div class="container">
+      <a class="navbar-brand" href="/"><h2 style="font-family: Georgia; color: #5e9693;">AI Chatbot</h2></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+        aria-label="Toggle navigation">
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url "home" %}">Home</a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link" href="">Chatbot</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav d-flex flex-row">
+          {% if user.is_authenticated %}
+          <li class="nav-item me-3 me-lg-0">
+              <a class="nav-link"><i class="fa fa-user"> Welcome, {{user.username}}!</a></i>
+          </li>
+          <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" class="btn btn-danger btn-rounded" href="{% url "logout" %}">
+            <button class="btn btn-outline-danger me-2" type="button">Logout</button>
+            </a>
+          </li>
+          {% else %}
+          <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" class="btn btn-success btn-rounded" href="{% url "register" %}">
+                <button class="btn btn-outline-success me-2" type="button">Sign Up</button>
+            </a>
+          </li>
+          <li class="nav-item me-3 me-lg-0">
+            <a class="nav-link" class="btn btn-primary btn-rounded" href="{% url "login" %}">
+            <button class="btn btn-outline-primary me-2" type="button">Login</button>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Navbar -->
+</header>
+
+{% block content %}{% endblock content %}
+
+
+{% block extra_js %}{% endblock extra_js %}
+<script>
+        document.body.addEventListener('htmx:configRequest', (e) => {
+          e.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+          })
+      </script>
+<script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    </body>
+
+</html>

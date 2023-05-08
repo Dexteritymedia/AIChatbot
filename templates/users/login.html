@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+    <div class="col-12">
+
+
+{% if messages %}
+<div class="container">
+<div class="row">
+{% for message in messages %}
+<div class="col-12 mt-5">
+<div class="shadow card-body">
+	<div class="card-text text-danger" href="#" data-dismiss="alert">{{ message }}</div>
+	</div>
+</div>
+{% endfor %}
+</div>
+</div>
+{% endif %}
+
+<h1 class="mt-4">Login!</h1>
+
+<form method = "POST" action="{% url 'login' %}">
+    {% csrf_token %}
+    	Username:
+    <br/>
+    <input type="text" name="username" />
+    <br/>
+    Password:
+    <br/>
+    <input type="password" name="password" />
+    <br/><p class="mt-4"></p>
+    <input class ="btn btn-primary" type="submit" value= "Login" />
+    <br/><p class="mt-4"></p>
+		<p>Don't have an account? You can<a href="{% url 'register'%}"> Register Here  </a></p>
+</form>
+</div>
+</div>
+</div>
+
+
+{% endblock %}

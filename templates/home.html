@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %} Homepage{% endblock title %}
+
+
+{% block content %}
+<div class="p-5 text-center mt-5" style="background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);">
+<div class="container">
+<div class="row">
+<div class="col-12 mt-5">
+<br/>
+{% if user.is_authenticated %}
+	<h1>Welcome, {{user.username}}!</h1>
+	<br/>
+	{% if sessions %}
+		{% for session in sessions %}
+			{{ session.text }}
+			{{ session.date }}
+		{% endfor %}
+	{% else %}
+		<h1>You can start by creating a session 
+		<a class="btn btn-primary btn-rounded" href="{% url 'login' %}">Here</a></h1>
+	{% endif %}
+{% else %}
+	<h1>Welcome! Please <a class="btn btn-primary btn-rounded" href="{% url 'login' %}">Login</a></h1>
+{% endif %}
+
+</div>
+</div>
+</div>
+</div>
+
+{% endblock content %}
